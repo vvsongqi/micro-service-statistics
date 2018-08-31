@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>登录页面</title>
+
+    <script type="text/javascript" src="js/jquery.min.js" ></script>
+    <script type="text/javascript" src="js/bootstrap.min.js" ></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+</head>
+<style>
+    body:before{
+        content: "";
+        display: block;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: -1;
+        background-image: url("img/backImg.jpg");
+        background-repeat: round;
+        background-size: 100% 100%;
+    }
+    html,body,.container{
+        height: 100%;
+    }
+    div.modal.fade.in{
+        top:10%;
+        left: 50%;
+    }
+    button,checkbox,input{
+        margin-top:3%
+    }
+    .we-cirle{
+        text-align: center;
+    }
+</style>
+<body>
+<div class="container">
+    <div class="modal fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" style="display: block;">
+        <div class="modal-dialog" role="document" style="width: 350px;">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="we-cirle">
+                        <h1>WeCrile</h1>
+                    </div>
+                    <form action="login.php" method="post">
+                        <input type="text" class="form-control" name="username" placeholder="请输入账户名" required autofocus/>
+                        <input type="password" class="form-control" name="password" placeholder="请输入密码" required autofocus/>
+                        <input type="checkbox">记住我</input>&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;<a href="">忘记密码</a>
+                        <button type="button" class="btn btn-success form-control">登录</button>
+                    </form>
+                    <div class="registOrtravel">
+                        <span>还没有账号?</span><a href="">立即注册</a><span>.</span><a href="">游客访问</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+    $(function(){
+        $("#myModal").modal('show');
+    });
+    $("button").click(function(){
+        $.ajax({
+            type:"POST",
+            url:"/report/login",
+            data:{"userName":$("input[name='username']").val(),"passWord":$("input[name='password']").val()},
+            success:function (data) {
+
+                if("error"==data.returnCode){
+                    alert(data.returnMsg);
+                }else{
+                   window.location.href = "view/report.html";
+                }
+            }
+        });
+
+    });
+</script>
+</html>
